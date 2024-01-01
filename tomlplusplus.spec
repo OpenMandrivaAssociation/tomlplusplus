@@ -1,3 +1,7 @@
+%define major 3
+%define libname %mklibname tomlplusplus
+%define devname %mklibname -d tomlplusplus
+
 Name:           tomlplusplus
 Version:        3.4.0
 Release:        1
@@ -26,12 +30,18 @@ suite
 - Works with or without exceptions
 - Tested on Clang (6+), GCC (7+) and MSVC (VS2019)
 - Tested on x64, x86 and ARM
- 
-%package        devel
+
+%package -n %{libname}
+Summary:        Shared library for %{name}
+
+%description -n %{libname}
+toml++ is a TOML config parser and serializer for c++.
+
+%package -n %{devname}
 Summary:        Development libraries and header files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{libname} = %{version}-%{release}
  
-%description    devel
+%description -n %{devname}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
  
@@ -52,12 +62,12 @@ rm -r vendor/
 %install
 %meson_install
  
-%files
+%files -n %{libname}
 %license LICENSE
 %doc README.md
-%{_libdir}/libtomlplusplus.so.3*
+%{_libdir}/libtomlplusplus.so.%{major}*
  
-%files devel
+%files -n %{devname}
 %{_includedir}/toml++/
 %dir %{_libdir}/cmake/tomlplusplus
 %{_libdir}/cmake/tomlplusplus/*.cmake
