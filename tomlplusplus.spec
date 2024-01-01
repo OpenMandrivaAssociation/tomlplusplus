@@ -40,6 +40,7 @@ toml++ is a TOML config parser and serializer for c++.
 %package -n %{devname}
 Summary:        Development libraries and header files for %{name}
 Requires:       %{libname} = %{version}-%{release}
+Provides:       tomlplusplus-devel
  
 %description -n %{devname}
 The %{name}-devel package contains libraries and header files for
